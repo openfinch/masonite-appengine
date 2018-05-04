@@ -9,7 +9,7 @@ class UploadBackblazeProvider(ServiceProvider):
     wsgi = False
 
     def register(self):
-        self.app.bind('UploadB2Driver', UploadBackblazeDriver)
+        self.app.bind('UploadBackblazeDriver', UploadBackblazeDriver)
 
     def boot(self):
         pass
