@@ -21,13 +21,13 @@ class UploadBackblazeDriver(BaseUploadDriver, UploadContract):
         self.validate_extension(fileitem.filename)
 
         session = B2Session(
-            self.config.DRIVERS['b2']['account_id'],
-            self.config.DRIVERS['b2']['application_id']
+            self.config.DRIVERS['backblaze']['account_id'],
+            self.config.DRIVERS['backblaze']['application_id']
         )
 
         return session.upload_file(
             file_location,
-            self.config.DRIVERS['b2']['bucket_id'],
+            self.config.DRIVERS['backblaze']['bucket_id'],
             fileitem.filename
         )
 
