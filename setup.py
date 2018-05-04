@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(
-    name="masonite-backblaze",
+    name="masonite_backblaze",
     version='0.1.0',
     packages=['masonite_backblaze'],
     install_requires=[

@@ -25,7 +25,7 @@ class B2Session:
 
     @property
     def basic_auth_string(self):
-        auth_string = ':'.join(self._account_id, self._application_id)
+        auth_string = '{}:{}'.format(self._account_id, self._application_id)
         base_auth_string = 'Basic {}'.format(
             base64.b64encode(auth_string.encode('utf-8')).decode()
         )
@@ -33,11 +33,11 @@ class B2Session:
 
     @property
     def get_upload_url_endpoint(self):
-        return '/'.join(self.api_url, self.url_prefix, 'b2_get_upload_url')
+        return '/'.join((self.api_url, self.url_prefix, 'b2_get_upload_url'))
 
     @property
     def get_auth_endpoint(self):
-        return '/'.join(self.base_url, self.url_prefix, 'b2_authorize_account')
+        return '/'.join((self.base_url, self.url_prefix, 'b2_authorize_account'))
 
     def upload_file(self, file_location, bucket_id, filename):
         upload_token, upload_url = self._get_upload_url(bucket_id)
@@ -66,14 +66,14 @@ class B2Session:
         })
 
         resp_data = response.json()
-        self.auth_token = resp_data['authorization_token']
+        self.auth_token = resp_data['authorizationToken']
         self.api_url = resp_data['apiUrl']
-        self.download_url = resp_data['apiURL']
+        self.download_url = resp_data['downloadUrl']
 
     def _get_upload_url(self, bucket_id):
         response = requests.get(self.get_upload_url_endpoint, headers={
             'Authorization': self.auth_token,
-        }, payload={
+        }, data={
             'bucketId': bucket_id,
         })
 
